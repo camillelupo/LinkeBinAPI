@@ -17,17 +17,12 @@ class Users
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $uuid_user;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100)
      */
     private $role;
 
     /**
-     * @ORM\Column(type="string", length=60)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
 
@@ -54,6 +49,11 @@ class Users
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $token;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $mail;
 
     /**
@@ -64,18 +64,6 @@ class Users
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUuidUser(): ?int
-    {
-        return $this->uuid_user;
-    }
-
-    public function setUuidUser(int $uuid_user): self
-    {
-        $this->uuid_user = $uuid_user;
-
-        return $this;
     }
 
     public function getRole(): ?string
@@ -95,7 +83,7 @@ class Users
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -146,6 +134,18 @@ class Users
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }
