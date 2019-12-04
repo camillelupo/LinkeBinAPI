@@ -43,7 +43,7 @@ Under construction
 
 ## Authors
 
-* Camille Lupo - [Git]()
+* Camille Lupo - [Git](https://github.com/camillelupo)
 * Yamna Melki - [Git]()
 * Baptiste Bobot - [Git]()
 * Quentin Leroy  - [Git]()
