@@ -2,7 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
@@ -10,9 +15,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Users
 {
     /**
+     * @var \Ramsey\Uuid\UuidInterface
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
     private $id;
 
@@ -60,6 +67,16 @@ class Users
      * @ORM\Column(type="boolean")
      */
     private $is_enable;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UsersBin", mappedBy="uuid_user")
+     */
+    private $user_bin;
+
+    public function __construct()
+    {
+        $this->user_bin = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -170,6 +187,37 @@ class Users
     public function setIsEnable(bool $is_enable): self
     {
         $this->is_enable = $is_enable;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UsersBin[]
+     */
+    public function getUserBin(): Collection
+    {
+        return $this->user_bin;
+    }
+
+    public function addUserBin(UsersBin $userBin): self
+    {
+        if (!$this->user_bin->contains($userBin)) {
+            $this->user_bin[] = $userBin;
+            $userBin->setUuidUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserBin(UsersBin $userBin): self
+    {
+        if ($this->user_bin->contains($userBin)) {
+            $this->user_bin->removeElement($userBin);
+            // set the owning side to null (unless already changed)
+            if ($userBin->getUuidUser() === $this) {
+                $userBin->setUuidUser(null);
+            }
+        }
 
         return $this;
     }

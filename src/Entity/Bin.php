@@ -2,7 +2,11 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BinRepository")
@@ -10,9 +14,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Bin
 {
     /**
+     * @var \Ramsey\Uuid\UuidInterface
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
     private $id;
 
@@ -40,6 +46,16 @@ class Bin
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updated_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UsersBin", mappedBy="uuid_bin")
+     */
+    private $user_bin;
+
+    public function __construct()
+    {
+        $this->user_bin = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -102,6 +118,37 @@ class Bin
     public function setUpdatedAt(?\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UsersBin[]
+     */
+    public function getUserBin(): Collection
+    {
+        return $this->user_bin;
+    }
+
+    public function addUserBin(UsersBin $userBin): self
+    {
+        if (!$this->user_bin->contains($userBin)) {
+            $this->user_bin[] = $userBin;
+            $userBin->setUuidBin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserBin(UsersBin $userBin): self
+    {
+        if ($this->user_bin->contains($userBin)) {
+            $this->user_bin->removeElement($userBin);
+            // set the owning side to null (unless already changed)
+            if ($userBin->getUuidBin() === $this) {
+                $userBin->setUuidBin(null);
+            }
+        }
 
         return $this;
     }
