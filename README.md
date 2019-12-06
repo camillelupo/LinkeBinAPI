@@ -28,7 +28,7 @@ Installer les dépendances suivantes :
 
 Install following dépendencies :
 * [Doctrine](https://symfony.com/doc/current/doctrine.html)
-* [ramsey/uuid](https://github.com/ramsey/uuid-doctrine)
+* [ramsey/uuid-doctrine](https://github.com/ramsey/uuid-doctrine)
 * [zircote/swagger-php](https://github.com/zircote/swagger-php)
 
 ```bash
