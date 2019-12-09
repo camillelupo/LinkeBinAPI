@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+
 
 
 /**
@@ -15,7 +15,7 @@ use Ramsey\Uuid\UuidInterface;
 class Users
 {
     /**
-     * @var \Ramsey\Uuid\UuidInterface
+     * @var Uuid
      * @ORM\Id()
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
@@ -78,7 +78,7 @@ class Users
         $this->user_bin = new ArrayCollection();
     }
 
-    public function getId(): UuidInterface
+    public function getId()
     {
         return $this->id;
     }

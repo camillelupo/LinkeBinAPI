@@ -4,14 +4,14 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReportHistoricRepository")
  */
 class ReportHistoric
 {
     /**
-     * @var \Ramsey\Uuid\UuidInterface
+     * @var Uuid
      * @ORM\Id()
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")

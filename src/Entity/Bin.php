@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BinRepository")
@@ -14,7 +14,7 @@ use Ramsey\Uuid\UuidInterface;
 class Bin
 {
     /**
-     * @var \Ramsey\Uuid\UuidInterface
+     * @var Uuid
      * @ORM\Id()
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
@@ -23,12 +23,12 @@ class Bin
     private $id;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="geography", options={"geometry_type"="POINT"})
      */
     private $lat;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="geography", options={"geometry_type"="POINT"})
      */
     private $lon;
 
@@ -69,34 +69,44 @@ class Bin
         $this->cityBins = new ArrayCollection();
     }
 
-    public function getId(): UuidInterface
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getLat(): ?float
+    /**
+     * @return mixed
+     */
+    public function getLat()
     {
         return $this->lat;
     }
 
-    public function setLat(float $lat): self
+    /**
+     * @param mixed $lat
+     */
+    public function setLat($lat): void
     {
         $this->lat = $lat;
-
-        return $this;
     }
 
-    public function getLon(): ?float
+    /**
+     * @return mixed
+     */
+    public function getLon()
     {
         return $this->lon;
     }
 
-    public function setLon(float $lon): self
+    /**
+     * @param mixed $lon
+     */
+    public function setLon($lon): void
     {
         $this->lon = $lon;
-
-        return $this;
     }
+
+
 
     public function getIsEnable(): ?bool
     {
