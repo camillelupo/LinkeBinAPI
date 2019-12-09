@@ -52,9 +52,15 @@ class Bin
      */
     private $user_bin;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BinHistoric", mappedBy="uuid_bin")
+     */
+    private $bin_historics;
+
     public function __construct()
     {
         $this->user_bin = new ArrayCollection();
+        $this->bin_historics = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -147,6 +153,37 @@ class Bin
             // set the owning side to null (unless already changed)
             if ($userBin->getUuidBin() === $this) {
                 $userBin->setUuidBin(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BinHistoric[]
+     */
+    public function getBinHistorics(): Collection
+    {
+        return $this->bin_historics;
+    }
+
+    public function addBinHistoric(BinHistoric $binHistoric): self
+    {
+        if (!$this->bin_historics->contains($binHistoric)) {
+            $this->bin_historics[] = $binHistoric;
+            $binHistoric->setUuidBin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBinHistoric(BinHistoric $binHistoric): self
+    {
+        if ($this->bin_historics->contains($binHistoric)) {
+            $this->bin_historics->removeElement($binHistoric);
+            // set the owning side to null (unless already changed)
+            if ($binHistoric->getUuidBin() === $this) {
+                $binHistoric->setUuidBin(null);
             }
         }
 
