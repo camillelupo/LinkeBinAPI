@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -38,6 +40,16 @@ class City
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $departement;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CityBin", mappedBy="uuid_city")
+     */
+    private $cityBins;
+
+    public function __construct()
+    {
+        $this->cityBins = new ArrayCollection();
+    }
 
     public function getId(): UuidInterface
     {
@@ -88,6 +100,37 @@ class City
     public function setDepartement(?string $departement): self
     {
         $this->departement = $departement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CityBin[]
+     */
+    public function getCityBins(): Collection
+    {
+        return $this->cityBins;
+    }
+
+    public function addCityBin(CityBin $cityBin): self
+    {
+        if (!$this->cityBins->contains($cityBin)) {
+            $this->cityBins[] = $cityBin;
+            $cityBin->setUuidCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCityBin(CityBin $cityBin): self
+    {
+        if ($this->cityBins->contains($cityBin)) {
+            $this->cityBins->removeElement($cityBin);
+            // set the owning side to null (unless already changed)
+            if ($cityBin->getUuidCity() === $this) {
+                $cityBin->setUuidCity(null);
+            }
+        }
 
         return $this;
     }

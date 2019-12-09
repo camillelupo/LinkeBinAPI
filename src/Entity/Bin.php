@@ -57,10 +57,16 @@ class Bin
      */
     private $bin_historics;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CityBin", mappedBy="uuid_bin")
+     */
+    private $cityBins;
+
     public function __construct()
     {
         $this->user_bin = new ArrayCollection();
         $this->bin_historics = new ArrayCollection();
+        $this->cityBins = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -184,6 +190,37 @@ class Bin
             // set the owning side to null (unless already changed)
             if ($binHistoric->getUuidBin() === $this) {
                 $binHistoric->setUuidBin(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CityBin[]
+     */
+    public function getCityBins(): Collection
+    {
+        return $this->cityBins;
+    }
+
+    public function addCityBin(CityBin $cityBin): self
+    {
+        if (!$this->cityBins->contains($cityBin)) {
+            $this->cityBins[] = $cityBin;
+            $cityBin->setUuidBin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCityBin(CityBin $cityBin): self
+    {
+        if ($this->cityBins->contains($cityBin)) {
+            $this->cityBins->removeElement($cityBin);
+            // set the owning side to null (unless already changed)
+            if ($cityBin->getUuidBin() === $this) {
+                $cityBin->setUuidBin(null);
             }
         }
 
