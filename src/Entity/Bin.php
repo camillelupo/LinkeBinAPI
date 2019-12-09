@@ -57,7 +57,7 @@ class Bin
         $this->user_bin = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

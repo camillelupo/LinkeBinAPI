@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -42,7 +44,17 @@ class UsersBin
      */
     private $report_full;
 
-    public function getId(): ?int
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ReportHistoric", mappedBy="uuid_users_bin")
+     */
+    private $reportHistoric;
+
+    public function __construct()
+    {
+        $this->reportHistoric = new ArrayCollection();
+    }
+
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
@@ -91,6 +103,37 @@ class UsersBin
     public function setReportFull(?bool $report_full): self
     {
         $this->report_full = $report_full;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ReportHistoric[]
+     */
+    public function getReportHistoric(): Collection
+    {
+        return $this->reportHistoric;
+    }
+
+    public function addReportHistoric(ReportHistoric $reportHistoric): self
+    {
+        if (!$this->reportHistoric->contains($reportHistoric)) {
+            $this->reportHistoric[] = $reportHistoric;
+            $reportHistoric->setUuidUsersBin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReportHistoric(ReportHistoric $reportHistoric): self
+    {
+        if ($this->reportHistoric->contains($reportHistoric)) {
+            $this->reportHistoric->removeElement($reportHistoric);
+            // set the owning side to null (unless already changed)
+            if ($reportHistoric->getUuidUsersBin() === $this) {
+                $reportHistoric->setUuidUsersBin(null);
+            }
+        }
 
         return $this;
     }
