@@ -30,7 +30,7 @@ class CityController extends AbstractController
         $city = new City();
         $city->setName('test');
 
-        $raw = file_get_contents('C:\Users\17359\PhpstormProjects\LinkeBinAPI\toulouse.json');
+        $raw = file_get_contents('/Users/yamna/Projets/LinkeBinAPI/toulouse.json');
         $json = json_decode($raw,true);
         $city->setFileJson($json);
 
