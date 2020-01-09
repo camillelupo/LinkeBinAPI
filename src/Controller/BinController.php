@@ -21,6 +21,8 @@ class BinController extends AbstractController
     }
 
 
+
+
     public function addBin(): Response
     {
         $entityManager = $this->getDoctrine()->getManager();

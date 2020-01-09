@@ -42,6 +42,37 @@ class City
     private $departement;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated_at;
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param mixed $created_at
+     */
+    public function setCreatedAt($created_at): void
+    {
+        $this->created_at = $created_at;
+    }
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_enable;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\CityBin", mappedBy="uuid_city")
      */
     private $cityBins;
