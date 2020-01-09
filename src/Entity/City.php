@@ -152,6 +152,19 @@ class City
         $this->updated_at = $updated_at;
     }
 
+
+    public function getIsEnable(): ?bool
+    {
+        return $this->is_enable;
+    }
+
+    public function setIsEnable(bool $is_enable): self
+    {
+        $this->is_enable = $is_enable;
+
+        return $this;
+    }
+
     /**
      * @return Collection|CityBin[]
      */
