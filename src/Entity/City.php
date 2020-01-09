@@ -51,21 +51,7 @@ class City
      */
     private $updated_at;
 
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
 
-    /**
-     * @param mixed $created_at
-     */
-    public function setCreatedAt($created_at): void
-    {
-        $this->created_at = $created_at;
-    }
 
     /**
      * @ORM\Column(type="boolean")
@@ -80,6 +66,14 @@ class City
     public function __construct()
     {
         $this->cityBins = new ArrayCollection();
+        try {
+            $this->id = Uuid::uuid4();
+        } catch (\Exception $e) {
+        }
+        try {
+            $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        } catch (\Exception $e) {
+        }
     }
 
     public function getId()
@@ -133,6 +127,29 @@ class City
         $this->departement = $departement;
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+    }
+
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
     }
 
     /**

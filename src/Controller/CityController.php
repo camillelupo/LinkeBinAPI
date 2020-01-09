@@ -29,6 +29,7 @@ class CityController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $city = new City();
         $city->setName('test');
+        $city->setCreatedAt();
 
         $raw = file_get_contents('C:\Users\17359\PhpstormProjects\LinkeBinAPI\toulouse.json');
         $json = json_decode($raw,true);
