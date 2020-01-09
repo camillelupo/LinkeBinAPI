@@ -18,6 +18,7 @@ class BinRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Bin::class);
     }
+    
 
     // /**
     //  * @return Bin[] Returns an array of Bin objects

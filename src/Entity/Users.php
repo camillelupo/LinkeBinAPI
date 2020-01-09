@@ -24,14 +24,10 @@ class Users
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string")
      */
-    private $role;
+    private $user_id;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $name;
 
     /**
      * @ORM\Column(type="datetime")
@@ -43,25 +39,12 @@ class Users
      */
     private $updated_at;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $adress;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $token;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $mail;
 
     /**
      * @ORM\Column(type="boolean")
@@ -83,29 +66,11 @@ class Users
         return $this->id;
     }
 
-    public function getRole(): ?string
+    public function getUser_id(): ?string
     {
-        return $this->role;
+        return $this->user_id;
     }
 
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -131,29 +96,7 @@ class Users
         return $this;
     }
 
-    public function getAdress(): ?string
-    {
-        return $this->adress;
-    }
 
-    public function setAdress(?string $adress): self
-    {
-        $this->adress = $adress;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
 
     public function getToken(): ?string
     {
@@ -167,17 +110,6 @@ class Users
         return $this;
     }
 
-    public function getMail(): ?string
-    {
-        return $this->mail;
-    }
-
-    public function setMail(string $mail): self
-    {
-        $this->mail = $mail;
-
-        return $this;
-    }
 
     public function getIsEnable(): ?bool
     {
