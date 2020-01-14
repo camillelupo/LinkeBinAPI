@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: 'API baise'
+  version: '1.0'
+paths:
+  /bin:
+    get:
+      tags:
+        - bins
+      summary: 'List all bin'
+      operationId: listBins
+      parameters:
+        -
+          name: limit
+          in: query
+          description: 'How many items to return at one time (max 100)'
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: 'An paged array of bins'
+          headers:
+            x-next:
+              description: 'A link to the next page of responses'
+              schema:
+                type: string
+        default:
+          description: 'unexpected error'
+  /bins:
+    post:
+      tags:
+        - bins
+      summary: 'Create a bin'
+      operationId: createBins
+      responses:
+        '201':
+          description: 'Null response'
+        default:
+          description: 'unexpected error'
+components:
+  schemas:
+    Bin:
+      required:
+        - id
+        - lat
+        - long
+        - is_enable
+        - created_at
+        - updated_at
+        - user_bin
+        - bin_historics
+        - cityBins
+      properties:
+        id:
+          type: uuid
+        lat:
+          type: integer
+          format: int32
+        lon:
+          type: integer
+          format: int32
+        is_enable:
+          type: boolean
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        user_bin:
+          type: integer
+        bin_historics:
+          type: integer
+          format: int32
+        cityBins:
+          type: integer
+          format: int32
+      type: object

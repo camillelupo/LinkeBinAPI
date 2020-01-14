@@ -6,10 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
+use Openapi\Annotations as OA;
 
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\BinRepository")
+ * @ORM\Entity(repositoryClass="App/Repository/BinRepository")
+ * @OA\Schema(required={"id", "lat", "long", "is_enable", "created_at", "updated_at", "user_bin", "bin_historics", "cityBins"})
  */
 class Bin
 {
@@ -19,46 +21,63 @@ class Bin
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     * @OA\Property(type="uuid")
      */
     private $id;
 
     /**
      * @ORM\Column(type="geography", options={"geometry_type"="POINT"})
+     * @var int
+     * @OA\Property(format="int32")
      */
     private $lat;
 
     /**
      * @ORM\Column(type="geography", options={"geometry_type"="POINT"})
+     * @var int
+     * @OA\Property(format="int32")
      */
     private $lon;
 
     /**
      * @ORM\Column(type="boolean")
+     * @var boolean|null
+     * @OA\Property(type="boolean", nullable=true)
      */
     private $is_enable;
 
     /**
      * @ORM\Column(type="datetime")
+     * @var \DateTimeInterface
+     * @OA\Property(type="string", format="date-time")
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTimeInterface
+     * @OA\Property(type="string", format="date-time")
      */
     private $updated_at;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UsersBin", mappedBy="uuid_bin")
+     * @var int
+     * @OA\Property(type="integer")
      */
     private $user_bin;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\BinHistoric", mappedBy="uuid_bin")
+     * @var int
+     * @OA\Property(format="int32")
      */
     private $bin_historics;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\CityBin", mappedBy="uuid_bin")
+     * @var int
+     * @OA\Property(format="int32")
      */
     private $cityBins;
 

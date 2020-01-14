@@ -6,8 +6,11 @@ servers:
   -
     url: 'http://api.tutoriel.fr/v1'
     description: 'Mon api'
+  -
+    url: 'http://api.tutoriel.fr/v1'
+    description: 'Mon api'
 paths:
-  ./src/Entity/Bin.php: {  }
+  src\Entity\Bin.php: {  }
 components:
   schemas:
     Bin:
@@ -34,18 +37,3 @@ components:
         cityBins:
           type: integer
       type: object
-  responses:
-    '200':
-      description: 'Les bennes'
-      content:
-        application/json:
-          schema:
-            $ref: '#components/schemas/Bin'
-  parameters:
-    id:
-      name: id
-      in: path
-      description: 'ID benne'
-      required: 'true'
-      schema:
-        type: integer
