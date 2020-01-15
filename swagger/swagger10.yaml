@@ -1,19 +1,24 @@
 openapi: 3.0.0
 info:
-  title: 'API baise'
-  version: '1.0'
+  title: 'Swagger LinkeBin'
+  license:
+    name: LinkeBin
+  version: 1.0.0
+servers:
+  -
+    url: linkebin.swagger.io
+    description: 'Api server'
 paths:
   /bin:
     get:
       tags:
         - bins
-      summary: 'List all bin'
-      operationId: listBins
+      summary: 'index of bins'
+      operationId: indexBins
       parameters:
         -
           name: limit
           in: query
-          description: 'How many items to return at one time (max 100)'
           required: false
           schema:
             type: integer
@@ -34,6 +39,41 @@ paths:
         - bins
       summary: 'Create a bin'
       operationId: createBins
+      responses:
+        '201':
+          description: 'Null response'
+        default:
+          description: 'unexpected error'
+  /city:
+    get:
+      tags:
+        - cities
+      summary: 'index of cities'
+      operationId: indexCities
+      parameters:
+        -
+          name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: 'An paged array of cities'
+          headers:
+            x-next:
+              description: 'A link to the next page of responses'
+              schema:
+                type: string
+        default:
+          description: 'unexpected error'
+  /cities:
+    post:
+      tags:
+        - cities
+      summary: 'Create a city'
+      operationId: createCities
       responses:
         '201':
           description: 'Null response'

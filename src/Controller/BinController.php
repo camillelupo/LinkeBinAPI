@@ -11,16 +11,14 @@ use OpenApi\Annotations\OpenApi;
 class BinController extends AbstractController
 {
     /**
-     * @OA\Info(title="API baise", version="1.0")
      *  @OA\Get(
      *     path="/bin",
-     *     summary="List all bin",
-     *     operationId="listBins",
+     *     summary="index of bins",
+     *     operationId="indexBins",
      *     tags={"bins"},
      *     @OA\Parameter(
      *         name="limit",
      *         in="query",
-     *         description="How many items to return at one time (max 100)",
      *         required=false,
      *         @OA\Schema(
      *             type="integer",

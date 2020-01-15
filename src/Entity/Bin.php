@@ -21,7 +21,7 @@ class Bin
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-     * @OA\Property(type="uuid")
+     * @OA\Property(type="integer")
      */
     private $id;
 

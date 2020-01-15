@@ -14,23 +14,3 @@ use OpenApi\Annotations as OA;
  *     ),
  * )
  */
-/**
- *  @OA\Schema(
- *      schema="Error",
- *      required={"code", "message"},
- *      @OA\Property(
- *          property="code",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @OA\Property(
- *          property="message",
- *          type="string"
- *      )
- *  ),
- *  @OA\Schema(
- *      schema="Bins",
- *      type="array",
- *      @OA\Items(ref="#/components/schemas/Bin")
- *  )
- */
