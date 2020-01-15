@@ -42,11 +42,15 @@ class BinController extends AbstractController
                 ->getRepository(City::class)
                 ->find($id);
             $json = $city->getFileJson();
+
         }
         else {
             $raw = file_get_contents($url);
             $json = json_decode($raw,true);
             $status = "URL Exist";
+            $city = $this->getDoctrine()
+                ->getRepository(City::class)
+                ->find($id);
         }
 
         echo($status);
@@ -60,8 +64,8 @@ class BinController extends AbstractController
         //Requette permettant d'ajouter les bin en fonction du json de la ville
 
         //ajout dans la table jointure
-        /*$cityBin = new cityBin();
-        $cityBin->setUuidCity($id);*/
+
+
 
         /*  // tell Doctrine you want to (eventually) save the Product (no queries yet)
         $entityManager->persist($cityBin);
@@ -71,6 +75,9 @@ class BinController extends AbstractController
      /*   echo "<pre>";
         print_r($json);
         echo "</pre>";*/
+
+
+
         foreach ($json['features'] as $value) {
 
             if (isset($value['properties']['geo_point_2d'])) {
@@ -79,23 +86,44 @@ class BinController extends AbstractController
                 $commune = $value['properties']['commune'];
                 $adresse = $value['properties']['adresse'];
 
+
+
             }
 
-            $bin = new bin();
-         $bin->setCoords("POINT($coords)");
-
-                      $bin->setCity($commune);
-                      $bin->setAdress($adresse);
-                      $bin->setIsEnable(true);
+           $oneBin = $this->getDoctrine()
+                ->getRepository(Bin::class)
+                ->findOneby(["coords" => "POINT($coords)"]);
 
 
-                      $entityManager = $this->getDoctrine()->getManager();
-                        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-               $entityManager->persist($bin);
+            if(!isset($oneBin)) {
+
+                $bin = new bin();
+                $cityBin = new cityBin();
+
+                $bin->setCoords("POINT($coords)");
+
+                $bin->setCity($commune);
+                $bin->setAdress($adresse);
+                $bin->setIsEnable(true);
+                $bin->addCityBin($cityBin);
+                $city->addCityBin($cityBin);
 
 
+                $entityManager = $this->getDoctrine()->getManager();
+                // tell Doctrine you want to (eventually) save the Product (no queries yet)
+                $entityManager->persist($bin);
+                $entityManager->persist($cityBin);
+                $entityManager->persist($city);
+
+
+            }else{
+                return new Response("Bins déja présentes dans la bases de Donnés");
+            }
         }
         $entityManager->flush();
+
+
         return new Response(" Bins ajoutés à la base de données");
+
     }
 }

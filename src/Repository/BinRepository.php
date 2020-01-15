@@ -48,4 +48,26 @@ class BinRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getLastID() {
+        $query = $this->createQueryBuilder('c')
+            ->orderBy('c.created_at', 'DESC')
+            ->getQuery();
+        return $query->getArrayResult();
+    }
+    public function getAllBins($id){
+         $query =
+             $this->createQueryBuilder('b')
+                 ->select('b.id','b.coords','b.created_at','b.updated_at')
+            ->getQuery();
+            return $query->getResult();
+    }
+    public function getBinByCoords($coord,$coord1){
+        return$this->createQueryBuilder('b')
+            ->where('b.coords = ST_Point(:val,:val1)')
+            ->setParameter(':val',$coord)
+            ->setParameter(':val1',$coord1)
+            ->getQuery()
+            ->getResult();
+    }
 }
