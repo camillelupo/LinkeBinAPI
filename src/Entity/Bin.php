@@ -25,12 +25,19 @@ class Bin
     /**
      * @ORM\Column(type="geography", options={"geometry_type"="POINT"})
      */
-    private $lat;
+    private $coords;
+
 
     /**
-     * @ORM\Column(type="geography", options={"geometry_type"="POINT"})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $lon;
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $adress;
+
 
     /**
      * @ORM\Column(type="boolean")
@@ -67,6 +74,14 @@ class Bin
         $this->user_bin = new ArrayCollection();
         $this->bin_historics = new ArrayCollection();
         $this->cityBins = new ArrayCollection();
+        try {
+            $this->id = Uuid::uuid4();
+        } catch (\Exception $e) {
+        }
+        try {
+            $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        } catch (\Exception $e) {
+        }
     }
 
     public function getId()
@@ -74,37 +89,19 @@ class Bin
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLat()
+
+    public function getCoords()
     {
-        return $this->lat;
+        return $this->coords;
     }
 
-    /**
-     * @param mixed $lat
-     */
-    public function setLat($lat): void
+
+    public function setCoords($coords): self
     {
-        $this->lat = $lat;
+        $this->coords = $coords;
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLon()
-    {
-        return $this->lon;
-    }
-
-    /**
-     * @param mixed $lon
-     */
-    public function setLon($lon): void
-    {
-        $this->lon = $lon;
-    }
 
 
 
@@ -141,6 +138,32 @@ class Bin
     {
         $this->updated_at = $updated_at;
 
+        return $this;
+    }
+
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+
+    public function setCity($city): self
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+
+    public function setAdress($adress): self
+    {
+        $this->adress = $adress;
         return $this;
     }
 
