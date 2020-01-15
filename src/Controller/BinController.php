@@ -6,7 +6,7 @@ use App\Entity\Bin;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations\OpenApi;
+use OpenApi\Annotations as OA;
 
 class BinController extends AbstractController
 {
@@ -28,13 +28,13 @@ class BinController extends AbstractController
      *     @OA\Response(
      *         response=200,
      *         description="An paged array of bins",
-     *         @OA\Schema(ref="#-components-schemas-Bins"),
+     *         @OA\Schema(ref="#/components/schemas/Bins"),
      *         @OA\Header(header="x-next", @OA\Schema(type="string"), description="A link to the next page of responses")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\Schema(ref="#-components-schemas-Error")
+     *         @OA\Schema(ref="#/components/schemas/Error")
      *     )
      * )
      */
@@ -57,7 +57,7 @@ class BinController extends AbstractController
      *    @OA\Response(
      *        response="default",
      *        description="unexpected error",
-     *        @OA\Schema(ref="#-components-schemas-Error")
+     *        @OA\Schema(ref="#/components/schemas/Error")
      *    )
      * )
      */

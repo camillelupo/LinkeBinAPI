@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
+use OpenApi\Annotations as OA;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CityRepository")
+ * @OA\Schema(schema="city", required={"id", "file_json", "name", "region", "departement", "cityBins"})
  */
 class City
 {
@@ -18,31 +20,37 @@ class City
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     * @OA\Property(type="integer")
      */
     private $id;
 
     /**
      * @ORM\Column(type="json")
+     * @OA\Property(type="json")
      */
     private $file_json = [];
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @OA\Property(type="string", maxLength=255)
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @OA\Property(type="string", maxLength=255, nullable=true)
      */
     private $region;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @OA\Property(type="string", maxLength=255, nullable=true)
      */
     private $departement;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\CityBin", mappedBy="uuid_city")
+     * @OA\Property(type="integer")
      */
     private $cityBins;
 

@@ -6,7 +6,7 @@
         "license": {
             "name": "LinkeBin"
         },
-        "version": "1.0.0"
+        "version": "4.0.0"
     },
     "servers": [
         {
@@ -124,7 +124,7 @@
     },
     "components": {
         "schemas": {
-            "Bin": {
+            "bin": {
                 "required": [
                     "id",
                     "lat",
@@ -170,6 +170,220 @@
                     "cityBins": {
                         "type": "integer",
                         "format": "int32"
+                    }
+                },
+                "type": "object"
+            },
+            "bin_historic": {
+                "required": [
+                    "id",
+                    "uuid_bin",
+                    "created_at",
+                    "pickup_at",
+                    "empty"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "uuid_bin": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "pickup_date": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "empty": {
+                        "type": "boolean",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "city": {
+                "required": [
+                    "id",
+                    "file_json",
+                    "name",
+                    "region",
+                    "departement",
+                    "cityBins"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "file_json": {
+                        "type": "json"
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "region": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "nullable": true
+                    },
+                    "departement": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "nullable": true
+                    },
+                    "cityBins": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "citybin": {
+                "required": [
+                    "id",
+                    "uuid_bin",
+                    "uuid_city"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "uuid_bin": {
+                        "type": "integer"
+                    },
+                    "uuid_city": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "reporthistoric": {
+                "required": [
+                    "id",
+                    "uuid_users_bin",
+                    "created_at",
+                    "degradation",
+                    "bin_full",
+                    "missing"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "uuid_users_bin": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "degradation": {
+                        "type": "boolean"
+                    },
+                    "bin_full": {
+                        "type": "boolean"
+                    },
+                    "missing": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "users": {
+                "required": [
+                    "id",
+                    "role",
+                    "name",
+                    "created_at",
+                    "updated_at",
+                    "adress",
+                    "password",
+                    "token",
+                    "mail",
+                    "is_enable",
+                    "user_bin"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "role": {
+                        "type": "string",
+                        "maxLength": 100
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "adress": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "nullable": true
+                    },
+                    "password": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "token": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "mail": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "is_enable": {
+                        "type": "boolean"
+                    },
+                    "user_bin": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "usersbin": {
+                "required": [
+                    "id",
+                    "uuid_bin",
+                    "uuid_user",
+                    "created_at",
+                    "report_full",
+                    "reportHistoric"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "uuid_bin": {
+                        "type": "integer",
+                        "nullable": false
+                    },
+                    "uuid_user": {
+                        "type": "integer",
+                        "nullable": false
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "report_full": {
+                        "type": "boolean",
+                        "nullable": true
+                    },
+                    "reportHistoric": {
+                        "type": "integer"
                     }
                 },
                 "type": "object"

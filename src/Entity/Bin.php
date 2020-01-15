@@ -11,7 +11,7 @@ use Openapi\Annotations as OA;
 
 /**
  * @ORM\Entity(repositoryClass="App/Repository/BinRepository")
- * @OA\Schema(required={"id", "lat", "long", "is_enable", "created_at", "updated_at", "user_bin", "bin_historics", "cityBins"})
+ * @OA\Schema(schema="bin", required={"id", "lat", "long", "is_enable", "created_at", "updated_at", "user_bin", "bin_historics", "cityBins"})
  */
 class Bin
 {

@@ -6,11 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
+use OpenApi\Annotations as OA;
 
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsersBinRepository")
+ * @OA\Schema(schema="usersbin", required={"id", "uuid_bin", "uuid_user", "created_at", "report_full", "reportHistoric"})
  */
 class UsersBin
 {
@@ -20,33 +22,39 @@ class UsersBin
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     * @OA\Property(type="integer")
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Bin", inversedBy="user_bin")
      * @ORM\JoinColumn(nullable=false)
+     * @OA\Property(type="integer", nullable=false)
      */
     private $uuid_bin;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="user_bin")
      * @ORM\JoinColumn(nullable=false)
+     * @OA\Property(type="integer", nullable=false)
      */
     private $uuid_user;
 
     /**
      * @ORM\Column(type="datetime")
+     * @OA\Property(type="string", format="date-time")
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @OA\Property(type="boolean", nullable=true)
      */
     private $report_full;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ReportHistoric", mappedBy="uuid_users_bin")
+     * @OA\Property(type="integer")
      */
     private $reportHistoric;
 

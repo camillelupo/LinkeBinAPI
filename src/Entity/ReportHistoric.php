@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
+use OpenApi\Annotations as OA;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReportHistoricRepository")
+ * @OA\Schema(schema="reporthistoric", required={"id", "uuid_users_bin", "created_at", "degradation", "bin_full", "missing"})
  */
 class ReportHistoric
 {
@@ -16,32 +18,38 @@ class ReportHistoric
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     * @OA\Property(type="integer")
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Usersbin", inversedBy="reportHistoric")
      * @ORM\JoinColumn(nullable=false)
+     * @OA\Property(type="integer")
      */
     private $uuid_users_bin;
 
     /**
      * @ORM\Column(type="datetime")
+     * @OA\Property(type="string", format="date-time")
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @OA\Property(type="boolean")
      */
     private $degradation;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @OA\Property(type="boolean")
      */
     private $bin_full;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @OA\Property(type="boolean")
      */
     private $missing;
 
