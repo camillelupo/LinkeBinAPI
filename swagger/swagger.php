@@ -12,7 +12,6 @@ use OpenApi\Annotations as OA;
  *     @OA\Server(
  *         description="Api server",
  *         url="linkebin.swagger.io",
- *     ),
- *
+ *     )
  * )
  */

@@ -42,17 +42,15 @@ class BinController extends AbstractController
      *    summary="Add all bins",
      *    operationId="createBins",
      *    tags={"bin"},
-     *     @OA\Response(
-     *         response=200,
-     *         description="An paged array of bins",
-     *         @OA\Header(header="x-next", @OA\Schema(type="string", ref="#/components/schemas/bins"), description="A link to the next page of responses")
-     *     ),
-     *    @OA\Response(response=201, description="Null response"),
      *    @OA\Response(
-     *        response="default",
-     *        description="unexpected error",
-     *        @OA\Schema(ref="#/components/schemas/Error")
-     *    )
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/bins")
+     *     ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Access denied"
+     * )
      * )
      */
 

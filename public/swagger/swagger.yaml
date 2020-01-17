@@ -32,17 +32,13 @@ paths:
       operationId: createBins
       responses:
         '200':
-          description: 'An paged array of bins'
-          headers:
-            x-next:
-              description: 'A link to the next page of responses'
+          description: Success
+          content:
+            application/json:
               schema:
-                type: string
                 $ref: '#/components/schemas/bins'
-        '201':
-          description: 'Null response'
-        default:
-          description: 'unexpected error'
+        '404':
+          description: 'Access denied'
   /city:
     get:
       tags:
@@ -80,8 +76,9 @@ components:
     bins:
       required:
         - id
-        - lat
-        - long
+        - coords
+        - city
+        - adress
         - is_enable
         - created_at
         - updated_at
@@ -93,7 +90,6 @@ components:
           type: integer
         coords:
           type: integer
-          format: int32
         is_enable:
           type: boolean
           nullable: true
@@ -146,7 +142,9 @@ components:
         id:
           type: integer
         file_json:
-          type: json
+          type: array
+          items:
+            type: string
         name:
           type: string
           maxLength: 255

@@ -11,7 +11,7 @@ use Openapi\Annotations as OA;
 
 /**
  * @ORM\Entity(repositoryClass="App/Repository/BinRepository")
- * @OA\Schema(schema="bins", required={"id", "lat", "long", "is_enable", "created_at", "updated_at", "user_bin", "bin_historics", "cityBins"})
+ * @OA\Schema(schema="bins", required={"id", "coords", "city", "adress", "is_enable", "created_at", "updated_at", "user_bin", "bin_historics", "cityBins"})
  */
 class Bin
 {
@@ -28,18 +28,21 @@ class Bin
     /**
      * @ORM\Column(type="geography", options={"geometry_type"="POINT"})
      * @var int
-     * @OA\Property(format="int32")
+     * @OA\Property(type="integer")
      */
     private $coords;
 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     * @ORM\Property(type="string", maxLength=255, nullable=true)
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Property(type="string", maxLength=255, nullable=true)
      */
     private $adress;
 
