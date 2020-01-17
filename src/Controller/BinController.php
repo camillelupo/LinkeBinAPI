@@ -45,7 +45,9 @@ class BinController extends AbstractController
                     "commune" => $value['city']) ;
                 $coord = str_replace(array('SRID=4326;POINT(',')'),'',$value['coords']);
                 $arraycoord = explode(' ',$coord);
-                $value['geometry']['coordinates'] = $arraycoord;
+                $value['geometry'] = array(
+                    "type" => "Point",
+                    "coordinates" => $arraycoord);
                 $coordresult['features'][] = $value;
             }
             $result = json_encode($coordresult, true);
