@@ -2,7 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
+
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
@@ -10,26 +15,19 @@ use Doctrine\ORM\Mapping as ORM;
 class Users
 {
     /**
+     * @var Uuid
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
-    private $uuid_user;
+    private $user_id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $role;
-
-    /**
-     * @ORM\Column(type="string", length=60)
-     */
-    private $name;
 
     /**
      * @ORM\Column(type="datetime")
@@ -41,66 +39,38 @@ class Users
      */
     private $updated_at;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $adress;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    private $token;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $mail;
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $is_enable;
 
-    public function getId(): ?int
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UsersBin", mappedBy="uuid_user")
+     */
+    private $user_bin;
+
+    public function __construct()
+    {
+        $this->user_bin = new ArrayCollection();
+    }
+
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getUuidUser(): ?int
+    public function getUser_id(): ?string
     {
-        return $this->uuid_user;
+        return $this->user_id;
     }
 
-    public function setUuidUser(int $uuid_user): self
-    {
-        $this->uuid_user = $uuid_user;
-
-        return $this;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -126,41 +96,20 @@ class Users
         return $this;
     }
 
-    public function getAdress(): ?string
+
+
+    public function getToken(): ?string
     {
-        return $this->adress;
+        return $this->token;
     }
 
-    public function setAdress(?string $adress): self
+    public function setToken(string $token): self
     {
-        $this->adress = $adress;
+        $this->token = $token;
 
         return $this;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getMail(): ?string
-    {
-        return $this->mail;
-    }
-
-    public function setMail(string $mail): self
-    {
-        $this->mail = $mail;
-
-        return $this;
-    }
 
     public function getIsEnable(): ?bool
     {
@@ -170,6 +119,37 @@ class Users
     public function setIsEnable(bool $is_enable): self
     {
         $this->is_enable = $is_enable;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UsersBin[]
+     */
+    public function getUserBin(): Collection
+    {
+        return $this->user_bin;
+    }
+
+    public function addUserBin(UsersBin $userBin): self
+    {
+        if (!$this->user_bin->contains($userBin)) {
+            $this->user_bin[] = $userBin;
+            $userBin->setUuidUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserBin(UsersBin $userBin): self
+    {
+        if ($this->user_bin->contains($userBin)) {
+            $this->user_bin->removeElement($userBin);
+            // set the owning side to null (unless already changed)
+            if ($userBin->getUuidUser() === $this) {
+                $userBin->setUuidUser(null);
+            }
+        }
 
         return $this;
     }
