@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BinRepository")
@@ -14,7 +14,7 @@ use Ramsey\Uuid\UuidInterface;
 class Bin
 {
     /**
-     * @var \Ramsey\Uuid\UuidInterface
+     * @var Uuid
      * @ORM\Id()
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
@@ -23,14 +23,21 @@ class Bin
     private $id;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="geography", options={"geometry_type"="POINT"})
      */
-    private $lat;
+    private $coords;
+
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $lon;
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $adress;
+
 
     /**
      * @ORM\Column(type="boolean")
@@ -67,36 +74,36 @@ class Bin
         $this->user_bin = new ArrayCollection();
         $this->bin_historics = new ArrayCollection();
         $this->cityBins = new ArrayCollection();
+        try {
+            $this->id = Uuid::uuid4();
+        } catch (\Exception $e) {
+        }
+        try {
+            $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        } catch (\Exception $e) {
+        }
     }
 
-    public function getId(): UuidInterface
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getLat(): ?float
+
+    public function getCoords()
     {
-        return $this->lat;
+        return $this->coords;
     }
 
-    public function setLat(float $lat): self
-    {
-        $this->lat = $lat;
 
+    public function setCoords($coords): self
+    {
+        $this->coords = $coords;
         return $this;
     }
 
-    public function getLon(): ?float
-    {
-        return $this->lon;
-    }
 
-    public function setLon(float $lon): self
-    {
-        $this->lon = $lon;
 
-        return $this;
-    }
 
     public function getIsEnable(): ?bool
     {
@@ -131,6 +138,32 @@ class Bin
     {
         $this->updated_at = $updated_at;
 
+        return $this;
+    }
+
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+
+    public function setCity($city): self
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+
+    public function setAdress($adress): self
+    {
+        $this->adress = $adress;
         return $this;
     }
 
