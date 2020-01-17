@@ -23,9 +23,33 @@ class BinController extends AbstractController
     }
 
     /**
+     * @Route("/bins/getAllBins", name="getAllBins", methods={"GET"})
+     */
+        public function getAllBins(){
+
+            $array = $this->getDoctrine()
+                ->getRepository(Bin::class)
+                ->findAllBins();
+
+            $coordresult = array();
+            foreach ($array as $value)
+            {
+                $coord = str_replace(array('SRID=4326;POINT(',')'),'',$value['coords']);
+                $arraycoord = explode(' ',$coord);
+                $value['Point'] = $arraycoord;
+                $coordresult[] = $value;
+            }
+            $result = json_encode($coordresult, true);
+            return new Response(
+                $result
+            );
+
+        }
+
+
+    /**
      * @Route("/AddCityBins/{id}", name="AddCityBins")
      */
-
     public function addAllBins($id): Response
     {
 
