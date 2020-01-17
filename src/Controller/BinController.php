@@ -31,18 +31,30 @@ class BinController extends AbstractController
                 ->getRepository(Bin::class)
                 ->findAllBins();
 
-            $coordresult = array();
+            $coordresult = array(
+                        "type" => "FeatureCollection",
+                "features" => [
+
+            ]
+
+            );
             foreach ($array as $value)
             {
+                $value['properties'] = array(
+                   "adress" => $value['adress'],
+                    "commune" => $value['city']) ;
                 $coord = str_replace(array('SRID=4326;POINT(',')'),'',$value['coords']);
                 $arraycoord = explode(' ',$coord);
-                $value['Point'] = $arraycoord;
-                $coordresult[] = $value;
+                $value['geometry']['coordinates'] = $arraycoord;
+                $coordresult['features'][] = $value;
             }
             $result = json_encode($coordresult, true);
-            return new Response(
+            $response  = new Response(
                 $result
             );
+            $response->headers->set('Content-type', 'application/json');
+            $response->headers->set('Access-Control-Allow-Origin','*');
+            return $response;
 
         }
 
