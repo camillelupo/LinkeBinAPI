@@ -13,31 +13,16 @@ class CityController extends AbstractController
 {
     /**
      * @Route("/city", name="city")
-     *  @OA\Get(
+     * @OA\Get(
      *     path="/city",
-     *     summary="index of cities",
-     *     operationId="indexCities",
-     *     tags={"cities"},
-     *     @OA\Parameter(
-     *         name="limit",
-     *         in="query",
-     *         required=false,
-     *         @OA\Schema(
-     *             type="integer",
-     *             format="int32"
-     *         )
-     *     ),
+     *    summary="Index of city",
+     *    tags={"city"},
      *     @OA\Response(
      *         response=200,
-     *         description="An paged array of cities",
-     *         @OA\Schema(ref="#/components/schemas/Cities"),
+     *         description="Display index of city",
+     *         @OA\Schema(ref="#/components/schemas/City"),
      *         @OA\Header(header="x-next", @OA\Schema(type="string"), description="A link to the next page of responses")
      *     ),
-     *     @OA\Response(
-     *         response="default",
-     *         description="unexpected error",
-     *         @OA\Schema(ref="#/components/schemas/Error")
-     *     )
      * )
      */
     public function index()
@@ -54,7 +39,13 @@ class CityController extends AbstractController
      *    path="/cities",
      *    summary="Create a city",
      *    operationId="createCities",
-     *    tags={"cities"},
+     *    tags={"city"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Create a new city",
+     *         @OA\Schema(ref="#/components/schemas/Cities"),
+     *         @OA\Header(header="x-next", @OA\Schema(type="string"), description="A link to the next page of responses")
+     *     ),
      *    @OA\Response(response=201, description="Null response"),
      *    @OA\Response(
      *        response="default",

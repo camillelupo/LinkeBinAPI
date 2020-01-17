@@ -13,31 +13,17 @@ use OpenApi\Annotations as OA;
 class BinController extends AbstractController
 {
     /**
-     *  @OA\Get(
+     * @Route("/bin", name="bin")
+     * @OA\Get(
      *     path="/bin",
-     *     summary="index of bins",
-     *     operationId="indexBins",
-     *     tags={"bins"},
-     *     @OA\Parameter(
-     *         name="limit",
-     *         in="query",
-     *         required=false,
-     *         @OA\Schema(
-     *             type="integer",
-     *             format="int32"
-     *         )
-     *     ),
+     *    summary="Index of bin",
+     *    tags={"bin"},
      *     @OA\Response(
      *         response=200,
-     *         description="An paged array of bins",
-     *         @OA\Schema(ref="#/components/schemas/Bins"),
+     *         description="Display index of bin",
+     *         @OA\Schema(ref="#/components/schemas/bins"),
      *         @OA\Header(header="x-next", @OA\Schema(type="string"), description="A link to the next page of responses")
      *     ),
-     *     @OA\Response(
-     *         response="default",
-     *         description="unexpected error",
-     *         @OA\Schema(ref="#/components/schemas/Error")
-     *     )
      * )
      */
 
@@ -53,9 +39,14 @@ class BinController extends AbstractController
      * @Route("/AddCityBins/{id}", name="AddCityBins")
      * @OA\Post(
      *    path="/bins",
-     *    summary="Create a bin",
+     *    summary="Add all bins",
      *    operationId="createBins",
-     *    tags={"bins"},
+     *    tags={"bin"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="An paged array of bins",
+     *         @OA\Header(header="x-next", @OA\Schema(type="string", ref="#/components/schemas/bins"), description="A link to the next page of responses")
+     *     ),
      *    @OA\Response(response=201, description="Null response"),
      *    @OA\Response(
      *        response="default",

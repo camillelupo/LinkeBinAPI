@@ -18,24 +18,13 @@
         "/bin": {
             "get": {
                 "tags": [
-                    "bins"
+                    "bin"
                 ],
-                "summary": "index of bins",
-                "operationId": "indexBins",
-                "parameters": [
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
+                "summary": "Index of bin",
+                "operationId": "App\\Controller\\BinController::index",
                 "responses": {
                     "200": {
-                        "description": "An paged array of bins",
+                        "description": "Display index of bin",
                         "headers": {
                             "x-next": {
                                 "description": "A link to the next page of responses",
@@ -44,9 +33,6 @@
                                 }
                             }
                         }
-                    },
-                    "default": {
-                        "description": "unexpected error"
                     }
                 }
             }
@@ -54,11 +40,23 @@
         "/bins": {
             "post": {
                 "tags": [
-                    "bins"
+                    "bin"
                 ],
-                "summary": "Create a bin",
+                "summary": "Add all bins",
                 "operationId": "createBins",
                 "responses": {
+                    "200": {
+                        "description": "An paged array of bins",
+                        "headers": {
+                            "x-next": {
+                                "description": "A link to the next page of responses",
+                                "schema": {
+                                    "type": "string",
+                                    "$ref": "#/components/schemas/bins"
+                                }
+                            }
+                        }
+                    },
                     "201": {
                         "description": "Null response"
                     },
@@ -71,24 +69,35 @@
         "/city": {
             "get": {
                 "tags": [
-                    "cities"
+                    "city"
                 ],
-                "summary": "index of cities",
-                "operationId": "indexCities",
-                "parameters": [
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
+                "summary": "Index of city",
+                "operationId": "App\\Controller\\CityController::index",
                 "responses": {
                     "200": {
-                        "description": "An paged array of cities",
+                        "description": "Display index of city",
+                        "headers": {
+                            "x-next": {
+                                "description": "A link to the next page of responses",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cities": {
+            "post": {
+                "tags": [
+                    "city"
+                ],
+                "summary": "Create a city",
+                "operationId": "createCities",
+                "responses": {
+                    "200": {
+                        "description": "Create a new city",
                         "headers": {
                             "x-next": {
                                 "description": "A link to the next page of responses",
@@ -98,20 +107,6 @@
                             }
                         }
                     },
-                    "default": {
-                        "description": "unexpected error"
-                    }
-                }
-            }
-        },
-        "/cities": {
-            "post": {
-                "tags": [
-                    "cities"
-                ],
-                "summary": "Create a city",
-                "operationId": "createCities",
-                "responses": {
                     "201": {
                         "description": "Null response"
                     },
@@ -124,7 +119,7 @@
     },
     "components": {
         "schemas": {
-            "bin": {
+            "bins": {
                 "required": [
                     "id",
                     "lat",
@@ -140,11 +135,7 @@
                     "id": {
                         "type": "integer"
                     },
-                    "lat": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "lon": {
+                    "coords": {
                         "type": "integer",
                         "format": "int32"
                     },
@@ -309,14 +300,8 @@
                     "id": {
                         "type": "integer"
                     },
-                    "role": {
-                        "type": "string",
-                        "maxLength": 100
-                    },
-                    "name": {
-                        "type": "string",
-                        "maxLength": 255,
-                        "nullable": true
+                    "user_id": {
+                        "type": "string"
                     },
                     "created_at": {
                         "type": "string",
@@ -327,20 +312,7 @@
                         "format": "date-time",
                         "nullable": true
                     },
-                    "adress": {
-                        "type": "string",
-                        "maxLength": 255,
-                        "nullable": true
-                    },
-                    "password": {
-                        "type": "string",
-                        "maxLength": 255
-                    },
                     "token": {
-                        "type": "string",
-                        "maxLength": 255
-                    },
-                    "mail": {
                         "type": "string",
                         "maxLength": 255
                     },

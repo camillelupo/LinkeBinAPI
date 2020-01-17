@@ -26,7 +26,7 @@ class City
 
     /**
      * @ORM\Column(type="json")
-     * @OA\Property(type="json")
+     * @OA\Property(type="array", @OA\Items(type="string"))
      */
     private $file_json = [];
 
