@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  title: 'API baise'
+  version: '1.0'
+servers:
+  -
+    url: 'http://api.tutoriel.fr/v1'
+    description: 'Mon api'
+  -
+    url: 'http://api.tutoriel.fr/v1'
+    description: 'Mon api'
+paths:
+  src\Entity\Bin.php: {  }
+components:
+  schemas:
+    Bin:
+      properties:
+        id:
+          type: integer
+        lat:
+          type: integer
+        lon:
+          type: integer
+        is_enable:
+          type: boolean
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        user_bin:
+          type: integer
+        bin_historics:
+          type: integer
+        cityBins:
+          type: integer
+      type: object

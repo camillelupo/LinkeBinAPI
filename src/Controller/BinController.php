@@ -8,12 +8,39 @@ use App\Entity\CityBin;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use OpenApi\Annotations\OpenApi;
 
 class BinController extends AbstractController
 {
     /**
-     * @Route("/bin", name="bin")
+     *  @OA\Get(
+     *     path="/bin",
+     *     summary="index of bins",
+     *     operationId="indexBins",
+     *     tags={"bins"},
+     *     @OA\Parameter(
+     *         name="limit",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int32"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="An paged array of bins",
+     *         @OA\Schema(ref="#-components-schemas-Bins"),
+     *         @OA\Header(header="x-next", @OA\Schema(type="string"), description="A link to the next page of responses")
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @OA\Schema(ref="#-components-schemas-Error")
+     *     )
+     * )
      */
+
     public function index()
     {
         return $this->json([

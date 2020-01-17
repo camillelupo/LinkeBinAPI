@@ -91,7 +91,7 @@
         "version": "2.2.3"
     },
     "php": {
-        "version": "7.3"
+        "version": "7.4"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -263,5 +263,8 @@
     },
     "zendframework/zend-eventmanager": {
         "version": "3.2.1"
+    },
+    "zircote/swagger-php": {
+        "version": "3.0.3"
     }
 }
