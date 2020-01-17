@@ -49,6 +49,23 @@ class City
     private $departement;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated_at;
+
+
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_enable;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\CityBin", mappedBy="uuid_city")
      * @OA\Property(type="integer")
      */
@@ -57,6 +74,14 @@ class City
     public function __construct()
     {
         $this->cityBins = new ArrayCollection();
+        try {
+            $this->id = Uuid::uuid4();
+        } catch (\Exception $e) {
+        }
+        try {
+            $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        } catch (\Exception $e) {
+        }
     }
 
     public function getId()
@@ -108,6 +133,42 @@ class City
     public function setDepartement(?string $departement): self
     {
         $this->departement = $departement;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+    }
+
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+    }
+
+
+    public function getIsEnable(): ?bool
+    {
+        return $this->is_enable;
+    }
+
+    public function setIsEnable(bool $is_enable): self
+    {
+        $this->is_enable = $is_enable;
 
         return $this;
     }
