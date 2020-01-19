@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Users;
 use App\Entity\Bin;
 use App\Entity\BinHistoric;
 use App\Entity\ReportHistoric;
@@ -25,22 +26,39 @@ class ReportHistoricController extends AbstractController
     }
 
     /**
-     * @Route("/AddReportHistoric/{id}", name="AddReportHistoric")
+     * @Route("/AddReportHistoric/{idBin}/{idUser}", name="AddReportHistoric")
      */
-    public function createReportHistoric($id): Response{
+    public function createReportHistoric($idBin, $idUser): Response{
 
 
-            $usersBin = new usersBin();
-            $binHistoric = new BinHistoric();
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $users = $this->getDoctrine()
+            ->getRepository(Users::class)
+            ->find($idUser);
+
 
         $bin = $this->getDoctrine()
             ->getRepository(Bin::class)
-            ->find($id);
-
-         $id =$bin->getId();
+            ->find($idBin);
 
 
 
+            $usersBin = new usersBin();
+            $reportHistoric = new reportHistoric();
+
+
+            $bin->addUserBin($usersBin);
+            $users->addUserBin($usersBin);
+            $usersBin->addReportHistoric($reportHistoric);
+
+        $entityManager->persist($bin);
+        $entityManager->persist($users);
+        $entityManager->persist($usersBin);
+        $entityManager->persist($reportHistoric);
+
+
+        $entityManager->flush();
         return new Response("BinsHistoric crée");
     }
 }
