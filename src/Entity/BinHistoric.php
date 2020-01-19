@@ -40,6 +40,18 @@ class BinHistoric
      */
     private $empty;
 
+    public function __construct()
+    {
+        try {
+            $this->id = Uuid::uuid4();
+        } catch (\Exception $e) {
+        }
+        try {
+            $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        } catch (\Exception $e) {
+        }
+    }
+
     public function getId()
     {
         return $this->id;

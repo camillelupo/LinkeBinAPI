@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Bin;
 use App\Entity\City;
 use App\Entity\CityBin;
+use App\Entity\BinHistoric;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -62,8 +63,8 @@ class BinController extends AbstractController
 
 
     /**
-     * @Route("/AddCityBins/{id}", name="AddCityBins")
-     */
+ * @Route("/AddCityBins/{id}", name="AddCityBins")
+ */
     public function addAllBins($id): Response
     {
 
@@ -116,6 +117,7 @@ class BinController extends AbstractController
 
                 $bin = new bin();
                 $cityBin = new cityBin();
+                $binHistoric = new binHistoric();
 
                 $bin->setCoords("POINT($coords)");
 
@@ -124,6 +126,8 @@ class BinController extends AbstractController
                 $bin->setIsEnable(true);
                 $bin->addCityBin($cityBin);
                 $city->addCityBin($cityBin);
+                $bin->addBinHistoric($binHistoric);
+
 
 
                 $entityManager = $this->getDoctrine()->getManager();
@@ -131,6 +135,7 @@ class BinController extends AbstractController
                 $entityManager->persist($bin);
                 $entityManager->persist($cityBin);
                 $entityManager->persist($city);
+                $entityManager->persist($binHistoric);
 
 
             }else{
