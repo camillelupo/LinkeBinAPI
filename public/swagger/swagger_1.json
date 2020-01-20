@@ -1,0 +1,422 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Swagger LinkeBin",
+        "description": "La documentation Linkebin de son api",
+        "license": {
+            "name": "LinkeBin"
+        },
+        "version": "4.1.0"
+    },
+    "servers": [
+        {
+            "url": "linkebin.swagger.io",
+            "description": "Api server"
+        }
+    ],
+    "paths": {
+        "/bin": {
+            "get": {
+                "tags": [
+                    "bin"
+                ],
+                "summary": "Index of bin",
+                "operationId": "App\\Controller\\BinController::index",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Welcome to your new controller!"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access denied"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/bins": {
+            "post": {
+                "tags": [
+                    "bin"
+                ],
+                "summary": "Add all bins",
+                "operationId": "createBins",
+                "parameters": [
+                    {
+                        "name": "ID",
+                        "in": "query",
+                        "description": "ID of bin",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Url",
+                        "in": "header",
+                        "description": "Url of api",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/bin"
+                                },
+                                "example": "\r\n     *         id: 0,\r\n     *         coords: 92.7667 87.4376,\r\n     *         city: Toulouse,\r\n     *         adress: 402 rue des tilleuls,\r\n     *         is_enable: true,\r\n     *         created_at: 2020-01-20T09:47:53.086Z,\r\n     *         updated_at: 2020-01-20T09:47:53.086Z,\r\n     *         user_bin: 42,\r\n     *         bin_historics: 50,\r\n     *         cityBins: 64"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access denied"
+                    },
+                    "404": {
+                        "description": "Url doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "URL Doesn't Exist"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/city": {
+            "get": {
+                "tags": [
+                    "city"
+                ],
+                "summary": "Index of city",
+                "operationId": "App\\Controller\\CityController::index",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Welcome to your new controller!"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access denied"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/cities": {
+            "post": {
+                "tags": [
+                    "city"
+                ],
+                "summary": "Create a city",
+                "operationId": "createCities",
+                "parameters": [
+                    {
+                        "name": "Link",
+                        "in": "header",
+                        "description": "Link of json file",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/city"
+                                },
+                                "example": "\r\n     *         id: 0,\r\n     *         file_json: [ string ],\r\n     *         name: string,\r\n     *         region: string,\r\n     *         departement: string,\r\n     *         cityBins: 0\r\n     *         "
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access denied"
+                    },
+                    "404": {
+                        "description": "Url doesn't exist"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "bin": {
+                "required": [
+                    "id",
+                    "coords",
+                    "city",
+                    "adress",
+                    "is_enable",
+                    "created_at",
+                    "updated_at",
+                    "user_bin",
+                    "bin_historics",
+                    "cityBins"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "coords": {
+                        "type": "integer"
+                    },
+                    "city": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "nullable": true
+                    },
+                    "adress": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "nullable": true
+                    },
+                    "is_enable": {
+                        "type": "boolean",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "user_bin": {
+                        "type": "integer"
+                    },
+                    "bin_historics": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "cityBins": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "type": "object"
+            },
+            "bin_historic": {
+                "required": [
+                    "id",
+                    "uuid_bin",
+                    "created_at",
+                    "pickup_at",
+                    "empty"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "uuid_bin": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "pickup_date": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "empty": {
+                        "type": "boolean",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "city": {
+                "required": [
+                    "id",
+                    "file_json",
+                    "name",
+                    "region",
+                    "departement",
+                    "cityBins"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "file_json": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "region": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "nullable": true
+                    },
+                    "departement": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "nullable": true
+                    },
+                    "cityBins": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "citybin": {
+                "required": [
+                    "id",
+                    "uuid_bin",
+                    "uuid_city"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "uuid_bin": {
+                        "type": "integer"
+                    },
+                    "uuid_city": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "reporthistoric": {
+                "required": [
+                    "id",
+                    "uuid_users_bin",
+                    "created_at",
+                    "degradation",
+                    "bin_full",
+                    "missing"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "uuid_users_bin": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "degradation": {
+                        "type": "boolean"
+                    },
+                    "bin_full": {
+                        "type": "boolean"
+                    },
+                    "missing": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "users": {
+                "required": [
+                    "id",
+                    "role",
+                    "name",
+                    "created_at",
+                    "updated_at",
+                    "adress",
+                    "password",
+                    "token",
+                    "mail",
+                    "is_enable",
+                    "user_bin"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "token": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "is_enable": {
+                        "type": "boolean"
+                    },
+                    "user_bin": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "usersbin": {
+                "required": [
+                    "id",
+                    "uuid_bin",
+                    "uuid_user",
+                    "created_at",
+                    "report_full",
+                    "reportHistoric"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "uuid_bin": {
+                        "type": "integer",
+                        "nullable": false
+                    },
+                    "uuid_user": {
+                        "type": "integer",
+                        "nullable": false
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "report_full": {
+                        "type": "boolean",
+                        "nullable": true
+                    },
+                    "reportHistoric": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

@@ -19,10 +19,17 @@ class CityController extends AbstractController
      *    tags={"city"},
      *     @OA\Response(
      *         response=200,
-     *         description="Display index of city",
-     *         @OA\Schema(ref="#/components/schemas/City"),
-     *         @OA\Header(header="x-next", @OA\Schema(type="string"), description="A link to the next page of responses")
+     *         description="Success",
+     *         @OA\JsonContent(example="Welcome to your new controller!",@OA\Schema(type="string"))
      *     ),
+     *     @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *     )
      * )
      */
     public function index()
@@ -40,18 +47,35 @@ class CityController extends AbstractController
      *    summary="Create a city",
      *    operationId="createCities",
      *    tags={"city"},
-     *     @OA\Response(
-     *         response=200,
-     *         description="Create a new city",
-     *         @OA\Schema(ref="#/components/schemas/Cities"),
-     *         @OA\Header(header="x-next", @OA\Schema(type="string"), description="A link to the next page of responses")
-     *     ),
-     *    @OA\Response(response=201, description="Null response"),
+     *     @OA\Parameter(
+     *         name="Link",
+     *         in="header",
+     *         description="Link of json file",
+     *         required=true,
+     *         @OA\Schema(
+     *              type="string"
+     *         )
+     *    ),
      *    @OA\Response(
-     *        response="default",
-     *        description="unexpected error",
-     *        @OA\Schema(ref="#/components/schemas/Error")
-     *    )
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/city",example="
+     *         id: 0,
+     *         file_json: [ string ],
+     *         name: string,
+     *         region: string,
+     *         departement: string,
+     *         cityBins: 0
+     *         ")
+     *    ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Url doesn't exist"
+     *     )
      * )
      */
     public function createCity(): Response
