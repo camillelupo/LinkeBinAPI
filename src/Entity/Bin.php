@@ -11,7 +11,7 @@ use Openapi\Annotations as OA;
 
 /**
  * @ORM\Entity(repositoryClass="App/Repository/BinRepository")
- * @OA\Schema(schema="bins", required={"id", "coords", "city", "adress", "is_enable", "created_at", "updated_at", "user_bin", "bin_historics", "cityBins"})
+ * @OA\Schema(schema="bin", required={"id", "coords", "city", "adress", "is_enable", "created_at", "updated_at", "user_bin", "bin_historics", "cityBins"})
  */
 class Bin
 {
@@ -36,13 +36,14 @@ class Bin
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
-     * @ORM\Property(type="string", maxLength=255, nullable=true)
+     * @OA\Property(type="string", maxLength=255, nullable=true)
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @ORM\Property(type="string", maxLength=255, nullable=true)
+     * @var string
+     * @OA\Property(type="string", maxLength=255, nullable=true)
      */
     private $adress;
 
@@ -78,14 +79,14 @@ class Bin
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\BinHistoric", mappedBy="uuid_bin")
      * @var int
-     * @OA\Property(format="int32")
+     * @OA\Property(type="integer",format="int32")
      */
     private $bin_historics;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\CityBin", mappedBy="uuid_bin")
      * @var int
-     * @OA\Property(format="int32")
+     * @OA\Property(type="integer",format="int32")
      */
     private $cityBins;
 

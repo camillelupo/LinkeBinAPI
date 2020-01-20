@@ -4,7 +4,7 @@ use OpenApi\Annotations as OA;
 /**
  * @OA\OpenApi(
  *     @OA\Info(
- *         version="4.0.0",
+ *         version="4.1.0",
  *         title="Swagger LinkeBin",
  *         description="La documentation Linkebin de son api",
  *         @OA\License(name="LinkeBin")

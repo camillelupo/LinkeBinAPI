@@ -20,10 +20,17 @@ class BinController extends AbstractController
      *    tags={"bin"},
      *     @OA\Response(
      *         response=200,
-     *         description="Display index of bin",
-     *         @OA\Schema(ref="#/components/schemas/bins"),
-     *         @OA\Header(header="x-next", @OA\Schema(type="string"), description="A link to the next page of responses")
+     *         description="Success",
+     *         @OA\JsonContent(example="Welcome to your new controller!",@OA\Schema(type="string"))
      *     ),
+     *     @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *     )
      * )
      */
 
@@ -42,15 +49,48 @@ class BinController extends AbstractController
      *    summary="Add all bins",
      *    operationId="createBins",
      *    tags={"bin"},
+     *    @OA\Parameter(
+     *         name="ID",
+     *         in="query",
+     *         description="ID of bin",
+     *         required=true,
+     *         @OA\Schema(
+     *              type="integer"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Url",
+     *         in="header",
+     *         description="Url of api",
+     *         required=false,
+     *         @OA\Schema(
+     *              type="string"
+     *         )
+     *    ),
      *    @OA\Response(
      *         response=200,
      *         description="Success",
-     *         @OA\JsonContent(ref="#/components/schemas/bins")
+     *         @OA\JsonContent(ref="#/components/schemas/bin",example="
+     *         id: 0,
+     *         coords: 92.7667 87.4376,
+     *         city: Toulouse,
+     *         adress: 402 rue des tilleuls,
+     *         is_enable: true,
+     *         created_at: 2020-01-20T09:47:53.086Z,
+     *         updated_at: 2020-01-20T09:47:53.086Z,
+     *         user_bin: 42,
+     *         bin_historics: 50,
+     *         cityBins: 64")
      *     ),
      *    @OA\Response(
-     *     response=404,
+     *          response=403,
      *     description="Access denied"
-     * )
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Url doesn't exist",
+     *     @OA\JsonContent(example="URL Doesn't Exist")
+     *     )
      * )
      */
 
