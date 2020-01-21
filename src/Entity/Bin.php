@@ -6,10 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
+use Openapi\Annotations as OA;
 
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\BinRepository")
+ * @ORM\Entity(repositoryClass="App/Repository/BinRepository")
+ * @OA\Schema(schema="bin", required={"id", "coords", "city", "adress", "is_enable", "created_at", "updated_at", "user_bin", "bin_historics", "cityBins"})
  */
 class Bin
 {
@@ -19,53 +21,72 @@ class Bin
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     * @OA\Property(type="integer")
      */
     private $id;
 
     /**
      * @ORM\Column(type="geography", options={"geometry_type"="POINT"})
+     * @var int
+     * @OA\Property(type="integer")
      */
     private $coords;
 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     * @OA\Property(type="string", maxLength=255, nullable=true)
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     * @OA\Property(type="string", maxLength=255, nullable=true)
      */
     private $adress;
 
 
     /**
      * @ORM\Column(type="boolean")
+     * @var boolean|null
+     * @OA\Property(type="boolean", nullable=true)
      */
     private $is_enable;
 
     /**
      * @ORM\Column(type="datetime")
+     * @var \DateTimeInterface
+     * @OA\Property(type="string", format="date-time")
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTimeInterface
+     * @OA\Property(type="string", format="date-time")
      */
     private $updated_at;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UsersBin", mappedBy="uuid_bin")
+     * @var int
+     * @OA\Property(type="integer")
      */
     private $user_bin;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\BinHistoric", mappedBy="uuid_bin")
+     * @var int
+     * @OA\Property(type="integer",format="int32")
      */
     private $bin_historics;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\CityBin", mappedBy="uuid_bin")
+     * @var int
+     * @OA\Property(type="integer",format="int32")
      */
     private $cityBins;
 
