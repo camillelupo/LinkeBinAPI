@@ -2,7 +2,11 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Swagger LinkeBin",
-        "description": "La documentation Linkebin de son api",
+        "description": "The Linkebin api's documentation. You can find out more about Swagger at [http://swagger.io](http://swagger.io) and at [https://github.com/zircote/swagger-php](https://github.com/zircote/swagger-php)",
+        "termsOfService": "https://smartbear.com/terms-of-use/",
+        "contact": {
+            "email": "contact@linkebin.com"
+        },
         "license": {
             "name": "LinkeBin"
         },
@@ -104,15 +108,19 @@
                 "operationId": "App\\Controller\\CityController::index",
                 "responses": {
                     "200": {
-                        "description": "Display index of city",
-                        "headers": {
-                            "x-next": {
-                                "description": "A link to the next page of responses",
-                                "schema": {
-                                    "type": "string"
-                                }
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Welcome to your new controller!"
                             }
                         }
+                    },
+                    "403": {
+                        "description": "Access denied"
+                    },
+                    "404": {
+                        "description": "Not found"
                     }
                 }
             }
@@ -124,23 +132,34 @@
                 ],
                 "summary": "Create a city",
                 "operationId": "createCities",
+                "parameters": [
+                    {
+                        "name": "Link",
+                        "in": "header",
+                        "description": "Link of json file",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Create a new city",
-                        "headers": {
-                            "x-next": {
-                                "description": "A link to the next page of responses",
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                }
+                                    "$ref": "#/components/schemas/city"
+                                },
+                                "example": "\r\n     *         id: 05,\r\n     *         file_json: [ C:\\Users\\17359\\PhpstormProjects\\LinkeBinAPI\\Bornes_a_verre(1).json ],\r\n     *         name: Toulouse,\r\n     *         region: Occitanie,\r\n     *         departement: Haute-Garonne,\r\n     *         cityBins: 109\r\n     *         "
                             }
                         }
                     },
-                    "201": {
-                        "description": "Null response"
+                    "403": {
+                        "description": "Access denied"
                     },
-                    "default": {
-                        "description": "unexpected error"
+                    "404": {
+                        "description": "Not found"
                     }
                 }
             }

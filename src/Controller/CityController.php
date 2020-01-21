@@ -60,12 +60,12 @@ class CityController extends AbstractController
      *         response=200,
      *         description="Success",
      *         @OA\JsonContent(ref="#/components/schemas/city",example="
-     *         id: 0,
-     *         file_json: [ string ],
-     *         name: string,
-     *         region: string,
-     *         departement: string,
-     *         cityBins: 0
+     *         id: 05,
+     *         file_json: [ C:\Users\17359\PhpstormProjects\LinkeBinAPI\Bornes_a_verre(1).json ],
+     *         name: Toulouse,
+     *         region: Occitanie,
+     *         departement: Haute-Garonne,
+     *         cityBins: 109
      *         ")
      *    ),
      *    @OA\Response(
@@ -74,7 +74,7 @@ class CityController extends AbstractController
      *    ),
      *    @OA\Response(
      *     response=404,
-     *     description="Url doesn't exist"
+     *     description="Not found"
      *     )
      * )
      */
