@@ -61,6 +61,14 @@ class UsersBin
     public function __construct()
     {
         $this->reportHistoric = new ArrayCollection();
+        try {
+            $this->id = Uuid::uuid4();
+        } catch (\Exception $e) {
+        }
+        try {
+            $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        } catch (\Exception $e) {
+        }
     }
 
     public function getId()

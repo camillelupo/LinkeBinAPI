@@ -49,16 +49,12 @@ class BinRepository extends ServiceEntityRepository
     }
     */
 
-    public function getLastID() {
-        $query = $this->createQueryBuilder('c')
-            ->orderBy('c.created_at', 'DESC')
-            ->getQuery();
-        return $query->getArrayResult();
-    }
-    public function getAllBins($id){
+
+
+    public function findAllBins(){
          $query =
              $this->createQueryBuilder('b')
-                 ->select('b.id','b.coords','b.created_at','b.updated_at')
+                 ->select('b.id','b.coords','b.adress','b.city','b.created_at','b.updated_at')
             ->getQuery();
             return $query->getResult();
     }

@@ -65,6 +65,14 @@ class Users
     public function __construct()
     {
         $this->user_bin = new ArrayCollection();
+        try {
+            $this->id = Uuid::uuid4();
+        } catch (\Exception $e) {
+        }
+        try {
+            $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        } catch (\Exception $e) {
+        }
     }
 
     public function getId()
@@ -75,6 +83,13 @@ class Users
     public function getUser_id(): ?string
     {
         return $this->user_id;
+    }
+
+
+    public function setUserId($user_id): self
+    {
+        $this->user_id = $user_id;
+        return $this;
     }
 
 
