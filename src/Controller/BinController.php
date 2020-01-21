@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Bin;
 use App\Entity\City;
 use App\Entity\CityBin;
+use App\Entity\BinHistoric;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,9 +24,47 @@ class BinController extends AbstractController
     }
 
     /**
-     * @Route("/AddCityBins/{id}", name="AddCityBins")
+     * @Route("/bins/getAllBins", name="getAllBins", methods={"GET"})
      */
+        public function getAllBins(){
 
+            $array = $this->getDoctrine()
+                ->getRepository(Bin::class)
+                ->findAllBins();
+
+            $coordresult = array(
+                        "type" => "FeatureCollection",
+                "features" => [
+
+            ]
+
+            );
+            foreach ($array as $value)
+            {
+                $value['properties'] = array(
+                   "adress" => $value['adress'],
+                    "commune" => $value['city']) ;
+                $coord = str_replace(array('SRID=4326;POINT(',')'),'',$value['coords']);
+                $arraycoord = explode(' ',$coord);
+                $value['geometry'] = array(
+                    "type" => "Point",
+                    "coordinates" => $arraycoord);
+                $coordresult['features'][] = $value;
+            }
+            $result = json_encode($coordresult, true);
+            $response  = new Response(
+                $result
+            );
+            $response->headers->set('Content-type', 'application/json');
+            $response->headers->set('Access-Control-Allow-Origin','*');
+            return $response;
+
+        }
+
+
+    /**
+ * @Route("/AddCityBins/{id}", name="AddCityBins")
+ */
     public function addAllBins($id): Response
     {
 
@@ -78,6 +117,7 @@ class BinController extends AbstractController
 
                 $bin = new bin();
                 $cityBin = new cityBin();
+                $binHistoric = new binHistoric();
 
                 $bin->setCoords("POINT($coords)");
 
@@ -86,6 +126,8 @@ class BinController extends AbstractController
                 $bin->setIsEnable(true);
                 $bin->addCityBin($cityBin);
                 $city->addCityBin($cityBin);
+                $bin->addBinHistoric($binHistoric);
+
 
 
                 $entityManager = $this->getDoctrine()->getManager();
@@ -93,6 +135,7 @@ class BinController extends AbstractController
                 $entityManager->persist($bin);
                 $entityManager->persist($cityBin);
                 $entityManager->persist($city);
+                $entityManager->persist($binHistoric);
 
 
             }else{
