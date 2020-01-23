@@ -15,7 +15,6 @@
         "symfony/framework-bundle": "5.0.*",
         "symfony/orm-pack": "^1.0",
         "symfony/yaml": "5.0.*",
-        "ext-json": "*",
         "zircote/swagger-php": "^3.0"
     },
     "require-dev": {

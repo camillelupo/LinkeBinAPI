@@ -47,4 +47,14 @@ class UsersRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findOneByUserID($value)
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('u.id')
+            ->Where('u.user_id = :val')
+            ->setParameter('val', $value)
+            ->getQuery();
+            return $query->getResult();
+
+    }
 }

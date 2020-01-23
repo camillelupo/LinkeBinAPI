@@ -96,4 +96,27 @@ class UsersController extends AbstractController
         $entityManager->flush();
         return new Response("User cree");
     }
+
+
+    /**
+     * @Route("/findUser/{user_id}", name="findUser")
+     */
+    public function findUser($user_id)
+    {
+        $user = $this->getDoctrine()
+            ->getRepository(Users::class)
+            ->findOneByUserID($user_id);
+
+
+        $userId = $user[0]['id'];
+        $array = array(
+            'id'=>$userId
+        );
+        $json = json_encode($array, true);
+        $response  = new Response($json);
+        $response->headers->set('Content-type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin','*');
+        return $response;
+
+    }
 }
