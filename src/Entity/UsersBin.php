@@ -132,6 +132,34 @@ class UsersBin
         return $this->reportHistoric;
     }
 
+    /**
+     * @OA\Post(
+     *    path="/AddReportHistoric",
+     *    summary="Add reporthistoric",
+     *    operationId="add reporthistoric",
+     *    tags={"userbin"},
+     *    @OA\Parameter(
+     *         name="reporthistoric",
+     *         in="path",
+     *         description="object reporthistoric",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/reporthistoric")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/reporthistoric")
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function addReportHistoric(ReportHistoric $reportHistoric): self
     {
         if (!$this->reportHistoric->contains($reportHistoric)) {
@@ -142,6 +170,33 @@ class UsersBin
         return $this;
     }
 
+    /**
+     * @OA\Delete(
+     *    path="/RemoveReportHistoric",
+     *    summary="delete reporthistoric",
+     *    operationId="delete reporthistoric",
+     *    tags={"userbin"},
+     *    @OA\Parameter(
+     *         name="reporthistoric",
+     *         in="path",
+     *         description="object reporthistoric",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/reporthistoric")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All have been deleted"
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function removeReportHistoric(ReportHistoric $reportHistoric): self
     {
         if ($this->reportHistoric->contains($reportHistoric)) {

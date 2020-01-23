@@ -8,7 +8,7 @@ use OpenApi\Annotations as OA;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BinHistoricRepository")
- * @OA\Schema(schema="bin_historic", required={"id", "uuid_bin", "created_at", "pickup_at", "empty"})
+ * @OA\Schema(schema="binhistoric", required={"id", "uuid_bin", "created_at", "pickup_at", "empty"})
  */
 class BinHistoric
 {

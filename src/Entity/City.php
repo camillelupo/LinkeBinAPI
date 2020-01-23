@@ -181,6 +181,34 @@ class City
         return $this->cityBins;
     }
 
+    /**
+     * @OA\Post(
+     *    path="/Addcitybin",
+     *    summary="Add citybin",
+     *    operationId="add citybin",
+     *    tags={"city"},
+     *    @OA\Parameter(
+     *         name="citybin",
+     *         in="path",
+     *         description="object citybin",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/citybin")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/citybin")
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function addCityBin(CityBin $cityBin): self
     {
         if (!$this->cityBins->contains($cityBin)) {
@@ -191,6 +219,33 @@ class City
         return $this;
     }
 
+    /**
+     * @OA\Delete(
+     *    path="/Removecitybin",
+     *    summary="delete citybin",
+     *    operationId="delete citybin",
+     *    tags={"city"},
+     *    @OA\Parameter(
+     *         name="citybin",
+     *         in="path",
+     *         description="object citybin",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/citybin")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All have been deleted"
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function removeCityBin(CityBin $cityBin): self
     {
         if ($this->cityBins->contains($cityBin)) {

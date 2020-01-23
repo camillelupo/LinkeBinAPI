@@ -154,34 +154,21 @@ class Users
 
     /**
      * @OA\Post(
-     *    path="/AddUserBin/{idBin}/{idUser}",
-     *    summary="Add report historic",
-     *    operationId="add Report Historic",
-     *    tags={"reporthistoric"},
+     *    path="/Adduserbin",
+     *    summary="Add userbin",
+     *    operationId="add userbin",
+     *    tags={"user"},
      *    @OA\Parameter(
-     *         name="idBin",
+     *         name="userbin",
      *         in="path",
-     *         description="ID of bin",
+     *         description="object userbin",
      *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Parameter(
-     *         name="idUser",
-     *         in="path",
-     *         description="ID of user",
-     *         required=true,
-     *         @OA\Schema(type="integer")
+     *         @OA\Schema(ref="#/components/schemas/usersbin")
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Success",
-     *         @OA\JsonContent(ref="#/components/schemas/reporthistoric",example="
-     *         id: 50,
-     *         uuid_users_bin: 05,
-     *         created_at: 2020-01-20T09:47:53.086Z,
-     *         degradation: true,
-     *         bin_full: true,
-     *         missing: false")
+     *         @OA\JsonContent(ref="#/components/schemas/usersbin")
      *      ),
      *    @OA\Response(
      *          response=403,
@@ -203,6 +190,33 @@ class Users
         return $this;
     }
 
+    /**
+     * @OA\Delete(
+     *    path="/Removeusersbin",
+     *    summary="delete usersbin",
+     *    operationId="delete usersbin",
+     *    tags={"user"},
+     *    @OA\Parameter(
+     *         name="usersbin",
+     *         in="path",
+     *         description="object usersbin",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/usersbin")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All have been deleted"
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function removeUserBin(UsersBin $userBin): self
     {
         if ($this->user_bin->contains($userBin)) {
