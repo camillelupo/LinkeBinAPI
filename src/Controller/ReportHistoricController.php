@@ -10,12 +10,31 @@ use App\Entity\UsersBin;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use OpenApi\Annotations as OA;
 
 
 class ReportHistoricController extends AbstractController
 {
     /**
      * @Route("/report/historic", name="report_historic")
+     * @OA\Get(
+     *     path="/report/historic",
+     *    summary="Index of report historic",
+     *    tags={"reporthistoric"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(example="Welcome to your new controller!",@OA\Schema(type="string"))
+     *     ),
+     *     @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *     )
+     * )
      */
     public function index()
     {
@@ -27,6 +46,45 @@ class ReportHistoricController extends AbstractController
 
     /**
      * @Route("/AddReportHistoric/{idBin}/{idUser}", name="AddReportHistoric")
+     * @OA\Post(
+     *    path="/AddReportHistoric/{idBin}/{idUser}",
+     *    summary="Add report historic",
+     *    operationId="add Report Historic",
+     *    tags={"reporthistoric"},
+     *    @OA\Parameter(
+     *         name="idBin",
+     *         in="path",
+     *         description="ID of bin",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="idUser",
+     *         in="path",
+     *         description="ID of user",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/reporthistoric",example="
+     *         id: 50,
+     *         uuid_users_bin: 05,
+     *         created_at: 2020-01-20T09:47:53.086Z,
+     *         degradation: true,
+     *         bin_full: true,
+     *         missing: false")
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
      */
     public function createReportHistoric($idBin, $idUser): Response{
 

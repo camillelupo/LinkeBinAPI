@@ -43,7 +43,7 @@ class CityController extends AbstractController
     /**
      * @Route("/addCity", name="addCity")
      * @OA\Post(
-     *    path="/cities",
+     *    path="/addCity",
      *    summary="Create a city",
      *    operationId="createCities",
      *    tags={"city"},
@@ -52,9 +52,7 @@ class CityController extends AbstractController
      *         in="header",
      *         description="Link of json file",
      *         required=true,
-     *         @OA\Schema(
-     *              type="string"
-     *         )
+     *         @OA\Schema(type="string")
      *    ),
      *    @OA\Response(
      *         response=200,
@@ -70,12 +68,12 @@ class CityController extends AbstractController
      *    ),
      *    @OA\Response(
      *          response=403,
-     *     description="Access denied"
+     *          description="Access denied"
      *    ),
      *    @OA\Response(
-     *     response=404,
-     *     description="Not found"
-     *     )
+     *          response=404,
+     *          description="Not found"
+     *    )
      * )
      */
     public function createCity(): Response
