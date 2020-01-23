@@ -100,6 +100,32 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/findUser/{user_id}", name="findUser")
+     * @OA\Post(
+     *    path="/findUser/{user_id}",
+     *    summary="find user",
+     *    operationId="finduser",
+     *    tags={"user"},
+     *    @OA\Parameter(
+     *         name="ID",
+     *         in="path",
+     *         description="ID of user",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(example="uuid: df3caab5-2523-4b85-a9e8-c115bed788dd")
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
      */
     public function findUser($user_id)
     {

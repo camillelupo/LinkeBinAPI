@@ -378,6 +378,43 @@
                 }
             }
         },
+        "/findUser/{user_id}": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "find user",
+                "operationId": "finduser",
+                "parameters": [
+                    {
+                        "name": "ID",
+                        "in": "path",
+                        "description": "ID of user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "uuid: df3caab5-2523-4b85-a9e8-c115bed788dd"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access denied"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
         "/AddUserBin": {
             "post": {
                 "tags": [
