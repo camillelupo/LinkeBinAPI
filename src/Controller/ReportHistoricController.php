@@ -25,10 +25,12 @@ class ReportHistoricController extends AbstractController
         ]);
     }
 
+
+
     /**
-     * @Route("/AddReportHistoric/{idBin}/{idUser}", name="AddReportHistoric")
+     * @Route("/ReportHistoricDegradation/{idBin}/{idUser}/{Degradation}", name="AddReportHistoric")
      */
-    public function createReportHistoric($idBin, $idUser): Response{
+    public function ReportHistoricDegradation($idBin, $idUser, $Degradation): Response{
 
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -51,6 +53,84 @@ class ReportHistoricController extends AbstractController
             $bin->addUserBin($usersBin);
             $users->addUserBin($usersBin);
             $usersBin->addReportHistoric($reportHistoric);
+        $reportHistoric->setDegradation($Degradation);
+
+
+        $entityManager->persist($bin);
+        $entityManager->persist($users);
+        $entityManager->persist($usersBin);
+        $entityManager->persist($reportHistoric);
+
+
+        $entityManager->flush();
+        return new Response("BinsHistoric crée");
+    }
+    /**
+     * @Route("/ReportHistoricFull/{idBin}/{idUser}/{full}", name="AddReportHistoric")
+     */
+    public function ReportHistoricFull($idBin, $idUser, $full): Response{
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $users = $this->getDoctrine()
+            ->getRepository(Users::class)
+            ->find($idUser);
+
+
+        $bin = $this->getDoctrine()
+            ->getRepository(Bin::class)
+            ->find($idBin);
+
+
+
+        $usersBin = new usersBin();
+        $reportHistoric = new reportHistoric();
+
+
+        $bin->addUserBin($usersBin);
+        $users->addUserBin($usersBin);
+        $usersBin->addReportHistoric($reportHistoric);
+        $reportHistoric->setBinFull($full);
+        $usersBin->setReportFull($full);
+
+        $entityManager->persist($bin);
+        $entityManager->persist($users);
+        $entityManager->persist($usersBin);
+        $entityManager->persist($reportHistoric);
+
+
+        $entityManager->flush();
+        return new Response("BinsHistoric crée");
+    }
+    /**
+     * @Route("/ReportHistoricMissing/{idBin}/{idUser}/{Missing}", name="AddReportHistoric")
+     */
+    public function ReportHistoricMissing($idBin, $idUser, $Degradation): Response{
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $users = $this->getDoctrine()
+            ->getRepository(Users::class)
+            ->find($idUser);
+
+
+        $bin = $this->getDoctrine()
+            ->getRepository(Bin::class)
+            ->find($idBin);
+
+
+
+        $usersBin = new usersBin();
+        $reportHistoric = new reportHistoric();
+
+
+        $bin->addUserBin($usersBin);
+        $users->addUserBin($usersBin);
+        $usersBin->addReportHistoric($reportHistoric);
+        $reportHistoric->setDegradation($Degradation);
+
 
         $entityManager->persist($bin);
         $entityManager->persist($users);
