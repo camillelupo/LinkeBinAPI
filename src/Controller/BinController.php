@@ -111,7 +111,9 @@ class BinController extends AbstractController
             {
                 $value['properties'] = array(
                    "adress" => $value['adress'],
-                    "commune" => $value['city']) ;
+                    "commune" => $value['city'],
+                    "id"=> $value['id']
+                ) ;
                 $coord = str_replace(array('SRID=4326;POINT(',')'),'',$value['coords']);
                 $arraycoord = explode(' ',$coord);
                 $value['geometry'] = array(

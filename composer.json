@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "ext-json": "*",
         "jsor/doctrine-postgis": "^1.7",
+        "lexik/jwt-authentication-bundle": "^2.6",
         "ramsey/uuid": "^3.9",
         "ramsey/uuid-doctrine": "^1.5",
         "symfony/console": "5.0.*",
