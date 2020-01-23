@@ -26,9 +26,9 @@ class ReportHistoricController extends AbstractController
     }
 
     /**
-     * @Route("/AddReportHistoric/{idBin}/{idUser}", name="AddReportHistoric")
+     * @Route("/AddReportHistoric/{idBin}/{idUser}/{Degradation}", name="AddReportHistoric")
      */
-    public function createReportHistoric($idBin, $idUser): Response{
+    public function createReportHistoric($idBin, $idUser, $Degradation): Response{
 
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -51,6 +51,8 @@ class ReportHistoricController extends AbstractController
             $bin->addUserBin($usersBin);
             $users->addUserBin($usersBin);
             $usersBin->addReportHistoric($reportHistoric);
+        $reportHistoric->setDegradation($Degradation);
+
 
         $entityManager->persist($bin);
         $entityManager->persist($users);
