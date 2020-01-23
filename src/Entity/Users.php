@@ -28,7 +28,7 @@ class Users
 
     /**
      * @ORM\Column(type="string")
-     * @OA\Property(type="string")
+     * @OA\Property(type="integer")
      */
     private $user_id;
 
@@ -152,6 +152,34 @@ class Users
         return $this->user_bin;
     }
 
+    /**
+     * @OA\Post(
+     *    path="/Adduserbin",
+     *    summary="Add userbin",
+     *    operationId="add userbin",
+     *    tags={"user"},
+     *    @OA\Parameter(
+     *         name="userbin",
+     *         in="path",
+     *         description="object userbin",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/usersbin")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/usersbin")
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function addUserBin(UsersBin $userBin): self
     {
         if (!$this->user_bin->contains($userBin)) {
@@ -162,6 +190,33 @@ class Users
         return $this;
     }
 
+    /**
+     * @OA\Delete(
+     *    path="/Removeusersbin",
+     *    summary="delete usersbin",
+     *    operationId="delete usersbin",
+     *    tags={"user"},
+     *    @OA\Parameter(
+     *         name="usersbin",
+     *         in="path",
+     *         description="object usersbin",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/usersbin")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All have been deleted"
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function removeUserBin(UsersBin $userBin): self
     {
         if ($this->user_bin->contains($userBin)) {

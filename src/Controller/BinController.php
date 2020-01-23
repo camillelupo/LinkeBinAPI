@@ -45,25 +45,34 @@ class BinController extends AbstractController
 
     /**
      * @Route("/bins/getAllBins", name="getAllBins", methods={"GET"})
-     * @OA\Post(
-     *    path="/bins",
-     *    summary="Add all bins",
-     *    operationId="createBins",
+     * @OA\Get(
+     *    path="/bins/getAllBins",
+     *    summary="Display all bins",
+     *    operationId="displayBins",
      *    tags={"bin"},
      *    @OA\Parameter(
-     *         name="ID",
-     *         in="query",
-     *         description="ID of bin",
+     *         name="Adress",
+     *         in="path",
+     *         description="Adress of bin",
      *         required=true,
      *         @OA\Schema(
-     *              type="integer"
+     *              type="string"
      *         )
      *     ),
      *     @OA\Parameter(
-     *         name="Url",
-     *         in="header",
-     *         description="Url of api",
-     *         required=false,
+     *         name="City",
+     *         in="path",
+     *         description="City of bin",
+     *         required=true,
+     *         @OA\Schema(
+     *              type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Coord",
+     *         in="path",
+     *         description="Coordonates of bin",
+     *         required=true,
      *         @OA\Schema(
      *              type="string"
      *         )
@@ -71,26 +80,15 @@ class BinController extends AbstractController
      *    @OA\Response(
      *         response=200,
      *         description="Success",
-     *         @OA\JsonContent(ref="#/components/schemas/bin",example="
-     *         id: 0,
-     *         coords: 92.7667 87.4376,
-     *         city: Toulouse,
-     *         adress: 402 rue des tilleuls,
-     *         is_enable: true,
-     *         created_at: 2020-01-20T09:47:53.086Z,
-     *         updated_at: 2020-01-20T09:47:53.086Z,
-     *         user_bin: 42,
-     *         bin_historics: 50,
-     *         cityBins: 64")
-     *     ),
-     *    @OA\Response(
-     *          response=403,
-     *     description="Access denied"
+     *         @OA\JsonContent(ref="#/components/schemas/bin",example="Bin on map")
      *    ),
      *    @OA\Response(
-     *     response=404,
-     *     description="Url doesn't exist",
-     *     @OA\JsonContent(example="URL Doesn't Exist")
+     *          response=403,
+     *          description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *          response=404,
+     *          description="Not found"
      *     )
      * )
      */
@@ -130,9 +128,58 @@ class BinController extends AbstractController
         }
 
 
-    /**
- * @Route("/AddCityBins/{id}", name="AddCityBins")
- */
+     /**
+     * @Route("/AddCityBins/{id}", name="AddCityBins")
+     * @OA\Post(
+     *    path="/AddCityBins/{id}",
+     *    summary="Add all bins",
+     *    operationId="createBins",
+     *    tags={"bin"},
+     *    @OA\Parameter(
+     *         name="ID",
+     *         in="query",
+     *         description="ID of bin",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="Url",
+     *         in="header",
+     *         description="Url of api",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/bin",example="
+     *         id: 0,
+     *         coords: 92.7667 87.4376,
+     *         city: Toulouse,
+     *         adress: 402 rue des tilleuls,
+     *         is_enable: true,
+     *         created_at: 2020-01-20T09:47:53.086Z,
+     *         updated_at: 2020-01-20T09:47:53.086Z,
+     *         user_bin: 42,
+     *         bin_historics: 50,
+     *         cityBins: 64")
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+      *     response=404,
+      *     description="Url doesn't exist",
+      *     @OA\JsonContent(example="URL Doesn't Exist")
+      *    ),
+      *    @OA\Response(
+      *     response="default",
+      *     description="Bin already here",
+      *     @OA\JsonContent(example="Bins déja présentes dans la bases de Donnés")
+      *    )
+     * )
+     */
     public function addAllBins($id): Response
     {
 

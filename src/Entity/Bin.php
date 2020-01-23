@@ -196,6 +196,34 @@ class Bin
         return $this->user_bin;
     }
 
+    /**
+     * @OA\Post(
+     *    path="/AddUserBin",
+     *    summary="Add userbin",
+     *    operationId="add userbin",
+     *    tags={"bin"},
+     *    @OA\Parameter(
+     *         name="userbin",
+     *         in="path",
+     *         description="object userbin",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/usersbin")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/usersbin")
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function addUserBin(UsersBin $userBin): self
     {
         if (!$this->user_bin->contains($userBin)) {
@@ -206,6 +234,33 @@ class Bin
         return $this;
     }
 
+    /**
+     * @OA\Delete(
+     *    path="/RemoveUserBin",
+     *    summary="delete userbin",
+     *    operationId="delete userbin",
+     *    tags={"bin"},
+     *    @OA\Parameter(
+     *         name="userbin",
+     *         in="path",
+     *         description="object userbin",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/usersbin")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All have been deleted"
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function removeUserBin(UsersBin $userBin): self
     {
         if ($this->user_bin->contains($userBin)) {
@@ -227,6 +282,34 @@ class Bin
         return $this->bin_historics;
     }
 
+    /**
+     * @OA\Post(
+     *    path="/AddBinHistoric",
+     *    summary="Add binhistoric",
+     *    operationId="add binhistoric",
+     *    tags={"bin"},
+     *    @OA\Parameter(
+     *         name="binhistoric",
+     *         in="path",
+     *         description="object binhistoric",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/binhistoric")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/binhistoric")
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function addBinHistoric(BinHistoric $binHistoric): self
     {
         if (!$this->bin_historics->contains($binHistoric)) {
@@ -237,6 +320,33 @@ class Bin
         return $this;
     }
 
+    /**
+     * @OA\Delete(
+     *    path="/RemoveBinHistoric",
+     *    summary="delete binhistoric",
+     *    operationId="delete binhistoric",
+     *    tags={"bin"},
+     *    @OA\Parameter(
+     *         name="binhistoric",
+     *         in="path",
+     *         description="object binhistoric",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/binhistoric")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All have been deleted"
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function removeBinHistoric(BinHistoric $binHistoric): self
     {
         if ($this->bin_historics->contains($binHistoric)) {
@@ -258,6 +368,34 @@ class Bin
         return $this->cityBins;
     }
 
+    /**
+     * @OA\Post(
+     *    path="/AddCityBin",
+     *    summary="Add user for citybin",
+     *    operationId="add citybin",
+     *    tags={"bin"},
+     *    @OA\Parameter(
+     *         name="citybin",
+     *         in="path",
+     *         description="object citybin",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/citybin")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/citybin")
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function addCityBin(CityBin $cityBin): self
     {
         if (!$this->cityBins->contains($cityBin)) {
@@ -268,6 +406,33 @@ class Bin
         return $this;
     }
 
+    /**
+     * @OA\Delete(
+     *    path="/RemoveCityBin",
+     *    summary="delete citybin",
+     *    operationId="delete citybin",
+     *    tags={"bin"},
+     *    @OA\Parameter(
+     *         name="citybin",
+     *         in="path",
+     *         description="object citybin",
+     *         required=true,
+     *         @OA\Schema(ref="#/components/schemas/citybin")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All have been deleted"
+     *      ),
+     *    @OA\Response(
+     *          response=403,
+     *     description="Access denied"
+     *    ),
+     *    @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     *    )
+     * )
+     */
     public function removeCityBin(CityBin $cityBin): self
     {
         if ($this->cityBins->contains($cityBin)) {
